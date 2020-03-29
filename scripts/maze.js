@@ -3,7 +3,7 @@
 // recursive backtracker
 
 var cols, rows;
-var order = 10;
+var order = 20;
 var canvasDimension = 800;
 // var frames = 500;
 var w;
@@ -17,6 +17,7 @@ var end_time;
 var finished = false;
 
 function setup() {
+  alert('Wait till the maze generation is completed. Use your arrow keys to move the blue box from start point (0,0) to end point (row, col)')
   createCanvas(canvasDimension, canvasDimension);
   w = floor(canvasDimension / order);
   cols = floor(width / w);
