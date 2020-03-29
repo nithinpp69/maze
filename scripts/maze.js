@@ -3,15 +3,17 @@
 // recursive backtracker
 
 var cols, rows;
-var order = 5;
+var order = 20;
 var canvasDimension = 800;
 // var frames = 500;
 var w;
 var grid = [];
 var stack = [];
+var path = [];
 
 var current;
-
+var start_time;
+var end_time;
 var finished = false;
 
 function setup() {
@@ -28,7 +30,7 @@ function setup() {
     }
   }
 
-  current = grid[10];
+  current = grid[0];
 }
 
 function draw() {
@@ -84,24 +86,37 @@ function removeWalls(a, b) {
 
 function checkIfWon(current) {
   if (current.i === current.j)
-    if (current.i === cols - 1)
-      if (confirm('You won the match. Play again?'))
+    if (current.i === cols - 1) {
+      end_time = new Date().getTime();
+      var difference = end_time - start_time;
+      var hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((difference % (1000 * 60)) / 1000);
+      if (confirm(`You completed the maze in ${hours} hours ${minutes} minutes and ${seconds} seconds. Play again?`))
         resetMaze();
+    }
 }
 
 
 function resetMaze() {
-
+  window.document.location.reload(true);
 }
 
 
 function startPlay() {
   // i for columns and j for rows
-
+  start_time = new Date().getTime();
   finished = true;
 
   window.addEventListener('keydown', function (event) {
     current_index = index(current.i, current.j);
+    if (!path.includes(current)) {
+      current.path = true;
+      path.push(current);
+    } else {
+      current.path = false;
+      path.pop();
+    }
     switch (event.key) {
       case "ArrowRight":
         if (current.i < cols - 1) {
