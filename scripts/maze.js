@@ -3,7 +3,7 @@
 // recursive backtracker
 
 var cols, rows;
-var order = 20;
+var order = 10;
 var canvasDimension = 800;
 // var frames = 500;
 var w;
@@ -104,19 +104,10 @@ function resetMaze() {
 
 
 function startPlay() {
-  // i for columns and j for rows
   start_time = new Date().getTime();
   finished = true;
-
   window.addEventListener('keydown', function (event) {
     current_index = index(current.i, current.j);
-    if (!path.includes(current)) {
-      current.path = true;
-      path.push(current);
-    } else {
-      current.path = false;
-      path.pop();
-    }
     switch (event.key) {
       case "ArrowRight":
         if (current.i < cols - 1) {
