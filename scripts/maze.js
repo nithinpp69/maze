@@ -17,6 +17,7 @@ var end_time;
 var finished = false;
 
 function setup() {
+  alert('Wait till the maze generation is completed. Use your arrow keys to move the blue box from start point (0,0) to end point (row, col)')
   createCanvas(canvasDimension, canvasDimension);
   w = floor(canvasDimension / order);
   cols = floor(width / w);
@@ -104,19 +105,10 @@ function resetMaze() {
 
 
 function startPlay() {
-  // i for columns and j for rows
   start_time = new Date().getTime();
   finished = true;
-
   window.addEventListener('keydown', function (event) {
     current_index = index(current.i, current.j);
-    if (!path.includes(current)) {
-      current.path = true;
-      path.push(current);
-    } else {
-      current.path = false;
-      path.pop();
-    }
     switch (event.key) {
       case "ArrowRight":
         if (current.i < cols - 1) {
